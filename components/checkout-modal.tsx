@@ -12,17 +12,89 @@ interface CheckoutModalProps {
   onContinueShopping: () => void
 }
 
-const PHILIPPINE_CITIES = [
+const PHILIPPINE_PROVINCES = [
+  "Abra",
+  "Agusan del Norte",
+  "Agusan del Sur",
+  "Aklan",
+  "Albay",
+  "Antique",
+  "Apayao",
+  "Aurora",
+  "Basilan",
+  "Bataan",
+  "Batanes",
+  "Batangas",
+  "Benguet",
+  "Biliran",
+  "Bohol",
+  "Bukidnon",
+  "Bulacan",
+  "Cagayan",
+  "Camarines Norte",
+  "Camarines Sur",
+  "Camiguin",
+  "Capiz",
+  "Catanduanes",
+  "Cavite",
+  "Cebu",
+  "Compostela Valley",
+  "Cotabato",
+  "Davao del Norte",
+  "Davao del Sur",
+  "Davao Occidental",
+  "Davao Oriental",
+  "Dinagat Islands",
+  "Eastern Samar",
+  "Guimaras",
+  "Ifugao",
+  "Ilocos Norte",
+  "Ilocos Sur",
+  "Iloilo",
+  "Isabela",
+  "Kalinga",
+  "La Union",
+  "Laguna",
+  "Lanao del Norte",
+  "Lanao del Sur",
+  "Leyte",
+  "Maguindanao",
+  "Marinduque",
+  "Masbate",
+  "Misamis Occidental",
+  "Misamis Oriental",
+  "Mountain Province",
+  "Negros Occidental",
+  "Negros Oriental",
+  "Northern Samar",
+  "Nueva Ecija",
+  "Nueva Vizcaya",
+  "Occidental Mindoro",
+  "Oriental Mindoro",
+  "Palawan",
+  "Pampanga",
+  "Pangasinan",
+  "Quezon",
+  "Quirino",
+  "Rizal",
+  "Romblon",
+  "Samar",
+  "Sarangani",
+  "Siquijor",
+  "Sorsogon",
+  "South Cotabato",
+  "Southern Leyte",
+  "Sultan Kudarat",
+  "Sulu",
+  "Surigao del Norte",
+  "Surigao del Sur",
+  "Tarlac",
+  "Tawi-Tawi",
+  "Zambales",
+  "Zamboanga del Norte",
+  "Zamboanga del Sur",
+  "Zamboanga Sibugay",
   "Metro Manila",
-  "Cebu City",
-  "Davao City",
-  "Cagayan de Oro",
-  "Makati",
-  "Quezon City",
-  "Pasig",
-  "Caloocan",
-  "Las Piñas",
-  "Parañaque",
   "Other",
 ]
 
@@ -36,7 +108,7 @@ export function CheckoutModal({ isOpen, onClose, onContinueShopping }: CheckoutM
     phone: "",
     email: "",
     address: "",
-    city: "Metro Manila",
+    city: "Abra",
     notes: "", // added notes field
   })
   const [paymentMethod, setPaymentMethod] = useState("gcash")
@@ -190,7 +262,7 @@ export function CheckoutModal({ isOpen, onClose, onContinueShopping }: CheckoutM
       phone: "",
       email: "",
       address: "",
-      city: "Metro Manila",
+      city: "Abra",
       notes: "", // added notes field
     })
     setPaymentMethod("gcash")
@@ -410,14 +482,14 @@ export function CheckoutModal({ isOpen, onClose, onContinueShopping }: CheckoutM
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">City/Municipality *</label>
+                <label className="block text-sm font-semibold text-foreground mb-2">Province *</label>
                 <select
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:border-primary"
                 >
-                  {PHILIPPINE_CITIES.map((city) => (
+                  {PHILIPPINE_PROVINCES.map((city) => (
                     <option key={city} value={city}>
                       {city}
                     </option>
