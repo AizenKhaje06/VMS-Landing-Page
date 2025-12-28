@@ -31,6 +31,14 @@ export function CheckoutModal({ isOpen, onClose, onContinueShopping }: CheckoutM
   const [submitError, setSubmitError] = useState("")
   const [showCODInfo, setShowCODInfo] = useState(false)
   const [availableMunicipalities, setAvailableMunicipalities] = useState<string[]>(PHILIPPINE_LOCATIONS["Metro Manila"])
+  const [continueToPaymentClicked, setContinueToPaymentClicked] = useState(false)
+  const [continueShoppingClicked, setContinueShoppingClicked] = useState(false)
+  const [confirmOrderDetailsClicked, setConfirmOrderDetailsClicked] = useState(false)
+  const [editOrderDetailsClicked, setEditOrderDetailsClicked] = useState(false)
+  const [confirmOrderClicked, setConfirmOrderClicked] = useState(false)
+  const [backToFormClicked, setBackToFormClicked] = useState(false)
+  const [doneClicked, setDoneClicked] = useState(false)
+  const [continueShoppingSuccessClicked, setContinueShoppingSuccessClicked] = useState(false)
 
   const PRODUCT_PRICE = 299
   const totalPrice = PRODUCT_PRICE * quantity
@@ -666,15 +674,27 @@ export function CheckoutModal({ isOpen, onClose, onContinueShopping }: CheckoutM
               <div className="space-y-3 pt-4">
                 <Button
                   type="submit"
-                  className="w-full min-h-[48px] sm:h-12 text-sm sm:text-base bg-primary text-primary-foreground hover:bg-primary/90"
+                  onClick={() => setContinueToPaymentClicked(true)}
+                  className={`w-full min-h-[48px] sm:h-12 text-sm sm:text-base transition-all duration-300 ${
+                    continueToPaymentClicked
+                      ? "bg-green-600 text-white hover:bg-green-700"
+                      : "bg-primary text-primary-foreground hover:bg-primary/90"
+                  }`}
                 >
                   Continue to Payment
                 </Button>
                 <Button
                   type="button"
-                  onClick={() => onContinueShopping()}
+                  onClick={() => {
+                    setContinueShoppingClicked(true)
+                    onContinueShopping()
+                  }}
                   variant="outline"
-                  className="w-full min-h-[48px] sm:h-12 text-sm sm:text-base border-primary text-primary hover:bg-primary/10 bg-transparent"
+                  className={`w-full min-h-[48px] sm:h-12 text-sm sm:text-base transition-all duration-300 ${
+                    continueShoppingClicked
+                      ? "bg-green-600 text-white border-green-600 hover:bg-green-700"
+                      : "border-primary text-primary hover:bg-primary/10 bg-transparent"
+                  }`}
                 >
                   Continue Shopping
                 </Button>
@@ -822,15 +842,23 @@ export function CheckoutModal({ isOpen, onClose, onContinueShopping }: CheckoutM
               {/* Action Buttons */}
               <div className="space-y-3 pt-4">
                 <Button
-                  onClick={handleProceedToPayment}
-                  className="w-full min-h-[48px] sm:h-12 text-sm sm:text-base bg-primary text-primary-foreground hover:bg-primary/90"
+                  onClick={() => { setConfirmOrderDetailsClicked(true); handleProceedToPayment(); }}
+                  className={`w-full min-h-[48px] sm:h-12 text-sm sm:text-base transition-all duration-300 ${
+                    confirmOrderDetailsClicked
+                      ? "bg-green-600 text-white hover:bg-green-700"
+                      : "bg-primary text-primary-foreground hover:bg-primary/90"
+                  }`}
                 >
                   Confirm Order Details
                 </Button>
                 <Button
-                  onClick={() => setStep("form")}
+                  onClick={() => { setEditOrderDetailsClicked(true); setStep("form"); }}
                   variant="outline"
-                  className="w-full min-h-[48px] sm:h-12 text-sm sm:text-base border-primary text-primary hover:bg-primary/10 bg-transparent"
+                  className={`w-full min-h-[48px] sm:h-12 text-sm sm:text-base transition-all duration-300 ${
+                    editOrderDetailsClicked
+                      ? "bg-green-600 text-white border-green-600 hover:bg-green-700"
+                      : "border-primary text-primary hover:bg-primary/10 bg-transparent"
+                  }`}
                 >
                   Edit Order Details
                 </Button>

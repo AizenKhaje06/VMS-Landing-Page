@@ -11,6 +11,8 @@ export function BuyNowSection() {
   const [isVisible, setIsVisible] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [stockCount, setStockCount] = useState(23)
+  const [buyNowClicked, setBuyNowClicked] = useState(false)
+  const [continueShoppingClicked, setContinueShoppingClicked] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -103,15 +105,29 @@ export function BuyNowSection() {
                 {/* CTA Buttons - Mobile-optimized with min-height for touch */}
                 <div className="space-y-3">
                   <Button
-                    onClick={() => setIsModalOpen(true)}
-                    className="w-full min-h-[52px] sm:h-14 text-sm sm:text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
+                    onClick={() => {
+                      setBuyNowClicked(true)
+                      setIsModalOpen(true)
+                    }}
+                    className={`w-full min-h-[52px] sm:h-14 text-sm sm:text-base transition-all duration-300 ${
+                      buyNowClicked
+                        ? "bg-green-600 text-white hover:bg-green-700"
+                        : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    }`}
                   >
                     Buy Now
                   </Button>
                   <Button
-                    onClick={handleContinueShopping}
+                    onClick={() => {
+                      setContinueShoppingClicked(true)
+                      handleContinueShopping()
+                    }}
                     variant="outline"
-                    className="w-full min-h-[48px] sm:h-12 text-sm sm:text-base border-primary text-primary hover:bg-primary/10 bg-transparent"
+                    className={`w-full min-h-[48px] sm:h-12 text-sm sm:text-base transition-all duration-300 ${
+                      continueShoppingClicked
+                        ? "bg-green-600 text-white border-green-600 hover:bg-green-700"
+                        : "border-primary text-primary hover:bg-primary/10 bg-transparent"
+                    }`}
                   >
                     Continue Shopping
                   </Button>
