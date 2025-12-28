@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import { UrgencyTimer } from "@/components/urgency-timer"
 import { LiveViewers } from "@/components/live-viewers"
 import { Flame } from "lucide-react"
+import { ABTest, heroHeadlineVariants, ctaButtonVariants } from "@/components/ab-test"
 
 export function HeroSection() {
   const sectionRef = useRef(null)
@@ -64,12 +65,18 @@ export function HeroSection() {
           <span className="text-sm sm:text-base font-bold text-foreground">Trusted by 50,000+ Filipino Women</span>
         </div>
 
-        <h1
-          className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 text-balance px-2 leading-tight ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-          style={{ animationDelay: "0.2s" }}
-        >
-          Transform Your Skin with <span className="text-primary animate-gold-sparkle">Nature's Volcanic Power</span>
-        </h1>
+        <ABTest
+          testId="hero-headline"
+          variants={heroHeadlineVariants}
+          render={(variant) => (
+            <h1
+              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 text-balance px-2 leading-tight ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
+              style={{ animationDelay: "0.2s" }}
+            >
+              {variant.content}
+            </h1>
+          )}
+        />
 
         {/* Subheadline */}
         <p
@@ -79,24 +86,27 @@ export function HeroSection() {
           Premium Deep-Cleansing Mud Scrub. Designed for tropical heat, humidity, and Filipino skin.
         </p>
 
-        <div
-          className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-          style={{ animationDelay: "0.4s" }}
-        >
-          <button onClick={() => handleNavClick("#buy-now")} className="w-full sm:w-auto">
-            <Button className="min-h-[56px] sm:h-14 md:h-16 w-full px-8 sm:px-10 text-base sm:text-lg font-bold animate-gold-shimmer text-primary-foreground border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/50">
-              Shop Volcanic Scrub
-            </Button>
-          </button>
-          <button onClick={() => handleNavClick("#buy-now")} className="w-full sm:w-auto">
-            <Button
-              variant="outline"
-              className="min-h-[56px] sm:h-14 md:h-16 w-full px-8 sm:px-10 text-base sm:text-lg font-bold border-2 border-primary text-primary hover:bg-primary/20 bg-transparent transition-all duration-300"
+        <ABTest
+          testId="hero-cta"
+          variants={ctaButtonVariants}
+          render={(variant) => (
+            <div
+              className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
+              style={{ animationDelay: "0.4s" }}
             >
-              Buy Now
-            </Button>
-          </button>
-        </div>
+              {variant.content.map((button: any, idx: number) => (
+                <button key={idx} onClick={() => handleNavClick("#buy-now")} className="w-full sm:w-auto">
+                  <Button
+                    variant={button.variant}
+                    className={button.className}
+                  >
+                    {button.text}
+                  </Button>
+                </button>
+              ))}
+            </div>
+          )}
+        />
 
         <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-16 py-8 border-y border-primary/20">
           {[

@@ -11,6 +11,9 @@ const reviews = [
     rating: 5,
     text: "Sobrang effective ng Volcanic Mud Scrub! My pores looked visibly smaller after just 2 weeks. Worth every piso!",
     image: "/testimonials/angela.jpg",
+    verified: true,
+    beforeAfter: true,
+    date: "2 weeks ago",
   },
   {
     id: 2,
@@ -19,6 +22,9 @@ const reviews = [
     rating: 5,
     text: "Finally found something that actually works for oily skin in this heat. My face stays matte all day now!",
     image: "/testimonials/jamie.jpg",
+    verified: true,
+    beforeAfter: false,
+    date: "1 month ago",
   },
   {
     id: 3,
@@ -27,6 +33,9 @@ const reviews = [
     rating: 5,
     text: "The scrub is amazing! My skin has never looked better. Highly recommend to all my friends!",
     image: "/testimonials/sofia.jpg",
+    verified: true,
+    beforeAfter: false,
+    date: "3 weeks ago",
   },
   {
     id: 4,
@@ -35,6 +44,9 @@ const reviews = [
     rating: 5,
     text: "Been using for 4 weeks and I can see such a dramatic difference. Pores smaller, skin brighter, finally makeup-free confident!",
     image: "/testimonials/michelle.jpg",
+    verified: true,
+    beforeAfter: true,
+    date: "1 week ago",
   },
 ]
 
@@ -82,31 +94,50 @@ export function ReviewsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review, idx) => (
             <div
               key={review.id}
               className={`rounded-2xl bg-card border-2 border-border/80 p-6 sm:p-8 hover:border-primary/50 hover:shadow-lg transition-all duration-300 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
               style={{ animationDelay: `${0.2 + idx * 0.1}s` }}
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-                ))}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex gap-1">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                {review.verified && (
+                  <div className="flex items-center gap-1 text-xs text-green-600 font-medium">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Verified Purchase
+                  </div>
+                )}
               </div>
 
-              <p className="text-base text-foreground/80 mb-6 leading-relaxed italic">"{review.text}"</p>
+              <p className="text-base text-foreground/80 mb-4 leading-relaxed italic">"{review.text}"</p>
 
-              <div className="flex items-center gap-4 pt-6 border-t-2 border-border/60">
-                <img
-                  src={review.image || `/placeholder.svg?height=48&width=48&query=${review.name}`}
-                  alt={review.name}
-                  className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
-                />
-                <div className="min-w-0">
-                  <p className="font-semibold text-base text-foreground">{review.name}</p>
-                  <p className="text-sm text-foreground/60">{review.location}</p>
+              {review.beforeAfter && (
+                <div className="mb-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
+                  <p className="text-sm font-medium text-primary">📸 Includes Before/After Photos</p>
                 </div>
+              )}
+
+              <div className="flex items-center justify-between pt-4 border-t-2 border-border/60">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={review.image || `/placeholder.svg?height=48&width=48&query=${review.name}`}
+                    alt={review.name}
+                    className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-primary/20"
+                  />
+                  <div className="min-w-0">
+                    <p className="font-semibold text-sm text-foreground">{review.name}</p>
+                    <p className="text-xs text-foreground/60">{review.location}</p>
+                  </div>
+                </div>
+                <span className="text-xs text-foreground/50">{review.date}</span>
               </div>
             </div>
           ))}
