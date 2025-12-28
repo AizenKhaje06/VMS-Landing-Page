@@ -30,7 +30,38 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
       <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        {/* Mobile Header */}
+        <div className="lg:hidden grid grid-cols-[auto_1fr_auto] items-center h-16 md:h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 justify-self-start">
+            <Image
+              src="/logo/cosmi-beautii-logo.png"
+              alt="Cosmi Beautii Logo"
+              width={48}
+              height={48}
+              className="h-10 w-10 md:h-12 md:w-12 object-contain"
+            />
+          </Link>
+
+          {/* Centered Brand Text */}
+          <div className="justify-self-center text-center">
+            <span className="font-serif font-medium text-gold-medium tracking-wide animate-breathing">
+              Volcanic Mud
+            </span>
+          </div>
+
+          {/* Mobile Menu Button - Thumb-friendly 44px target */}
+          <button
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center justify-self-end"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6 text-foreground" />}
+          </button>
+        </div>
+
+        {/* Desktop Header */}
+        <div className="hidden lg:flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 flex-shrink-0">
             <Image
@@ -46,7 +77,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
+          <div className="flex items-center gap-4 xl:gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -58,21 +89,12 @@ export function Header() {
             ))}
           </div>
 
-          {/* Desktop CTA - Hidden on tablet and mobile */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Desktop CTA */}
+          <div className="flex items-center gap-4">
             <button onClick={() => handleNavClick("#buy-now")}>
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-6">Buy Now</Button>
             </button>
           </div>
-
-          {/* Mobile Menu Button - Thumb-friendly 44px target */}
-          <button
-            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6 text-foreground" />}
-          </button>
         </div>
 
         {/* Mobile Menu - Optimized for touch */}

@@ -88,6 +88,7 @@
   --sidebar-ring: oklch(0.439 0 0);
 }
 
+/* tailwindcss: ignore */
 @theme inline {
   --font-sans: "Geist", "Geist Fallback";
   --font-serif: "Playfair Display", "Georgia", serif;
@@ -546,10 +547,12 @@
 
 @layer base {
   * {
+    /* tailwindcss: ignore */
     @apply border-border outline-ring/50;
   }
 
   body {
+    /* tailwindcss: ignore */
     @apply bg-background text-foreground;
     background-image: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
       radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 50%);
@@ -561,6 +564,7 @@
   h4,
   h5,
   h6 {
+    /* tailwindcss: ignore */
     @apply font-serif;
     letter-spacing: -0.02em;
   }
@@ -601,4 +605,19 @@
 
 .lava-gradient-subtle {
   background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+}
+
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+.animate-breathing {
+  animation: breathing 6s ease-in-out infinite;
 }
