@@ -60,11 +60,11 @@ export function ThreeDRotatingCarousel({ ingredients = [], showIngredientCards =
     return () => clearInterval(interval)
   }, [isAutoPlay, images.length])
 
-  const getImageIndex = (offset) => {
+  const getImageIndex = (offset: number) => {
     return (currentIndex + offset + images.length) % images.length
   }
 
-  const rotateCarousel = (direction) => {
+  const rotateCarousel = (direction: number) => {
     setCurrentIndex((prev) => (prev + direction + images.length) % images.length)
     setIsAutoPlay(false)
     setTimeout(() => setIsAutoPlay(true), 6000)

@@ -38,7 +38,7 @@ export function ProductImageShowcase() {
 
   const handleAddToCart = () => {
     addToCart({
-      id: "volcanic-scrub",
+      id: 1,
       name: "Volcanic Mud Scrub",
       price: 750,
       quantity,
