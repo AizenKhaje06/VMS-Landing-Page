@@ -63,6 +63,17 @@ export function MobileGlowCarousel({ cards, showDetails = false }: MobileGlowCar
     prefersReducedMotion.current = mediaQuery.matches
   }, [])
 
+  // Auto-play functionality
+  useEffect(() => {
+    if (prefersReducedMotion.current) return
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length)
+    }, 1500)
+
+    return () => clearInterval(interval)
+  }, [cards.length])
+
   // Calculate which cards are visible
   const getPrevIndex = () => (currentIndex - 1 + cards.length) % cards.length
   const getNextIndex = () => (currentIndex + 1) % cards.length
